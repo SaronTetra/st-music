@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld />
+      <NoteRandomizer/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import NoteRandomizer from "@/components/NoteRandomizer";
 
 export default {
   name: 'App',
   components: {
+    NoteRandomizer,
     HelloWorld
   }
 }
