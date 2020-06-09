@@ -1,4 +1,5 @@
 # st-music
+Web MIDI experiment
 
 ## Project setup
 ```
