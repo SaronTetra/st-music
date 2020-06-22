@@ -2,53 +2,44 @@
   <v-container>
     <v-layout row wrap justify-center pa-6>
       <v-row justify="center" align="center">
-        <v-label>Notes: {{noteDisplay}}</v-label>
-        <v-label>Chord: {{chord}}</v-label>
-        <v-col cols="2">
-          <v-list>
-            <v-list-item v-for="note in notes" :key="note">{{
-              note
-            }}</v-list-item>
-          </v-list>
-          <v-btn @click="shuffleNotes()">Shuffle</v-btn>
-          <v-btn @click="playNote()">Note</v-btn>
+        <v-label>Notes: {{ noteDisplay }}</v-label>
+        <v-label>Chord: {{ chord }}</v-label>
+        <v-col cols="12">
+          <NoteShuffler />
+          <!--          <v-btn @click="playNote()">Note</v-btn>-->
         </v-col>
       </v-row>
-      <v-footer>Made with <v-icon>mdi-heart</v-icon></v-footer>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { shuffle } from "@tonaljs/array";
-import {midiToNoteName} from "@tonaljs/midi";
+import { midiToNoteName } from "@tonaljs/midi";
 import { detect } from "@tonaljs/chord-detect";
+import NoteShuffler from "@/components/NoteShuffler";
 
 export default {
   name: "NoteRandomizer",
+  components: { NoteShuffler },
   data: () => ({
-    notes: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "B", "H"],
     activeNotes: [],
     noteName: "",
   }),
   computed: {
-    noteDisplay: function() {
-      var notes = []
+    noteDisplay: function () {
+      var notes = [];
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      var activeNotes = this.activeNotes.sort()
-      for (const note of  activeNotes) {
-        notes.push(midiToNoteName(note))
+      var activeNotes = this.activeNotes.sort();
+      for (const note of activeNotes) {
+        notes.push(midiToNoteName(note));
       }
-      return notes
+      return notes;
     },
-    chord: function() {
-        return detect(this.noteDisplay);
-    }
+    chord: function () {
+      return detect(this.noteDisplay);
+    },
   },
   methods: {
-    shuffleNotes() {
-      this.$set(this.notes, shuffle(this.notes));
-    },
     playNote() {
       navigator
         .requestMIDIAccess()
@@ -92,5 +83,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
