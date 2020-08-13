@@ -26,6 +26,11 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+        <template v-slot:append>
+          <div class="pa-2">
+            <MIDIConnect />
+          </div>
+        </template>
       </v-navigation-drawer>
       <v-content>
         <router-view />
@@ -43,11 +48,13 @@
 </template>
 
 <script>
+import MIDIConnect from "@/components/MIDIConnect";
 export default {
+  components: { MIDIConnect },
   data: () => ({
     pages: [
       { title: "Home", href: "/", icon: "mdi-home-outline" },
-      { title: "Music", href: "/NoteRandomizer", icon: "mdi-music-note" },
+      { title: "Music", href: "/music", icon: "mdi-music-note" },
       { title: "Test", href: "/test", icon: "mdi-flask" },
       { title: "About", href: "/about", icon: "mdi-account-question-outline" },
     ],

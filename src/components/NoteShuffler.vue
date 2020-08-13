@@ -18,12 +18,31 @@ export default {
   name: "NoteShuffler",
   props: {
     notes: {
-      default: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "B", "H"],
+      default: () => [
+        "CM",
+        "C#",
+        "D",
+        "D#",
+        "E",
+        "F",
+        "F#",
+        "G",
+        "G#",
+        "A",
+        "B",
+        "H",
+      ],
+    },
+  },
+  computed: {
+    shuffledNotes() {
+      return this.$store.getters.getShuffledNotes;
     },
   },
   methods: {
     shuffleNotes() {
       this.$set(this.notes, shuffle(this.notes));
+      this.$store.commit("setShuffledNotes", this.notes);
     },
   },
 };

@@ -4,10 +4,7 @@
       <v-row justify="center" align="center">
         <v-label>Notes: {{ noteDisplay }}</v-label>
         <v-label>Chord: {{ chord }}</v-label>
-        <v-col cols="12">
-          <NoteShuffler />
-          <!--          <v-btn @click="playNote()">Note</v-btn>-->
-        </v-col>
+        <v-btn @click="playNote()" block>MIDI</v-btn>
       </v-row>
     </v-layout>
   </v-container>
@@ -16,11 +13,9 @@
 <script>
 import { midiToNoteName } from "@tonaljs/midi";
 import { detect } from "@tonaljs/chord-detect";
-import NoteShuffler from "@/components/NoteShuffler";
 
 export default {
-  name: "NoteRandomizer",
-  components: { NoteShuffler },
+  name: "MIDIConnect",
   data: () => ({
     activeNotes: [],
     noteName: "",
@@ -33,6 +28,7 @@ export default {
       for (const note of activeNotes) {
         notes.push(midiToNoteName(note));
       }
+      this.setNotes(notes);
       return notes;
     },
     chord: function () {
@@ -65,7 +61,7 @@ export default {
           this.noteOff(note);
           break;
       }
-      console.log(this.activeNotes);
+      // console.log(this.activeNotes);
       // console.log(midiMessage.data)
     },
 
@@ -79,6 +75,9 @@ export default {
 
     onMIDIFailure(midiAccess) {
       console.log(midiAccess);
+    },
+    setNotes(notes) {
+      this.$store.commit("setNotes", notes);
     },
   },
 };
