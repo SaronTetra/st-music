@@ -1,5 +1,8 @@
-# st-music
-Web MIDI experiment
+# ST-Music
+Web MIDI experiment for practising and annoying friends.
+Works on Chromium based browsers.
+
+MIDI Keyboard required  
 
 ## Project setup
 ```
