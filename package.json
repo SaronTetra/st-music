@@ -11,6 +11,7 @@
     "@tonaljs/tonal": "^4.0.1",
     "core-js": "^3.6.4",
     "tone": "^13.8.25",
+    "vexflow": "^3.0.9",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",

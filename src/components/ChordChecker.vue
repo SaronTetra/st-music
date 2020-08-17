@@ -8,7 +8,7 @@
         :key="chord"
         :color="chord === chords[scale][currentChord] ? 'warning' : 'gray'"
       >
-        {{ chord }}
+        {{ chord.replace("b", "♭") }}
       </v-chip>
     </v-card-subtitle>
     <v-card-actions>
@@ -22,9 +22,11 @@
     </v-card-actions>
     <v-card-subtitle>
       <v-chip
-        :color="checkChord(chords[scale][currentChord]) ? 'success' : 'error'"
+        :color="
+          checkChord(chords[scale][currentChord]) ? 'success' : 'light-blue'
+        "
       >
-        {{ chords[scale][currentChord] }}
+        {{ showChord(notes) != null ? showChord(notes).replace("b", "♭") : "" }}
       </v-chip>
     </v-card-subtitle>
   </v-card>
@@ -82,8 +84,11 @@ export default {
     },
   },
   methods: {
+    showChord(notes) {
+      return detect(notes)[0];
+    },
     checkChord(chord) {
-      var result = chord === detect(this.notes)[0];
+      const result = chord === detect(this.notes)[0];
       if (result === true) {
         this.currentChord++;
         this.currentChord = this.clamp(

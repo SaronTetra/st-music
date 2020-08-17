@@ -13,6 +13,7 @@
 <script>
 import { midiToNoteName } from "@tonaljs/midi";
 import { detect } from "@tonaljs/chord-detect";
+import { EventBus } from "@/store/store";
 
 export default {
   name: "MIDIConnect",
@@ -22,9 +23,9 @@ export default {
   }),
   computed: {
     noteDisplay: function () {
-      var notes = [];
+      const notes = [];
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      var activeNotes = this.activeNotes.sort();
+      const activeNotes = this.activeNotes.sort();
       for (const note of activeNotes) {
         notes.push(midiToNoteName(note));
       }
@@ -43,14 +44,14 @@ export default {
     },
     onMIDISuccess(midiAccess) {
       console.log(midiAccess);
-      for (var input of midiAccess.inputs.values()) {
+      for (let input of midiAccess.inputs.values()) {
         input.onmidimessage = this.getMIDIMessage;
       }
     },
     getMIDIMessage(midiMessage) {
-      var command = midiMessage.data[0];
-      var note = midiMessage.data[1];
-      var velocity = midiMessage.data.length > 2 ? midiMessage.data[2] : 0;
+      const command = midiMessage.data[0];
+      const note = midiMessage.data[1];
+      const velocity = midiMessage.data.length > 2 ? midiMessage.data[2] : 0;
       switch (command) {
         case 144: // noteON
           if (velocity > 0) {
@@ -78,6 +79,7 @@ export default {
     },
     setNotes(notes) {
       this.$store.commit("setNotes", notes);
+      EventBus.$emit("note-played");
     },
   },
 };
