@@ -63,7 +63,7 @@ export default {
           break;
       }
       // console.log(this.activeNotes);
-      // console.log(midiMessage.data)
+      console.log(midiMessage.data);
     },
 
     noteOn(note) {
